@@ -46,6 +46,7 @@
             /* Rule 2: Grid layout on desktop */
             display: grid;
             gap: var(--spacing);
+            /* Redefine grid layout for the new card */
             grid-template-columns: repeat(3, 1fr);
             grid-auto-rows: minmax(180px, auto); 
         }
@@ -57,7 +58,7 @@
             border-radius: var(--border-radius);
             padding: var(--spacing) calc(var(--spacing) * 1.5);
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05); 
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition for scale */
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -65,9 +66,10 @@
             overflow: hidden;
         }
         
+        /* Theme Tweak (3): Subtle scale/zoom on hover */
         .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px) scale(1.02); 
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
         .card h3 {
@@ -114,6 +116,7 @@
             color: rgba(255, 255, 255, 0.85);
         }
 
+
         /* --- Specific Card Layouts --- */
         
         /* Card 1: Profile - Large Box (2x2) */
@@ -121,19 +124,26 @@
             grid-column: span 2;
             grid-row: span 2;
             padding: 30px;
+ /* === START NEW BACKGROUND IMAGE STYLES === */
+    background-image: url('4028.jpg'); /* 1. Set the image path */
+    background-size: cover;          /* 2. Scale the image to cover the card */
+    background-position: center;     /* 3. Center the image */
+    background-repeat: no-repeat;    /* 4. Prevent the image from tiling */
+    
+    /* Ensure text readability against the image */
+    background-color: var(--color-accent); /* Fallback color */
+    background-blend-mode: multiply;       /* Darken the image using the accent color */
+    /* === END NEW BACKGROUND IMAGE STYLES === */
+
+
         }
+
         
         .profile-header h1 {
             font-size: 3.2rem;
             font-weight: 900;
             line-height: 1;
             margin-bottom: 12px;
-        }
-
-        .profile-header p {
-            font-size: 1.35rem;
-            font-weight: 300;
-            margin-bottom: 25px;
         }
         
         .social-links a {
@@ -146,44 +156,43 @@
             transition: opacity 0.2s ease;
         }
         
-        .social-links a:hover {
-            opacity: 1;
-            text-decoration: underline;
-        }
-
         /* Card 2: Location - Small Box (1x1) */
         #card-location {
-            grid-column: span 1;
-            grid-row: span 1;
+            grid-column: 3 / 4; /* Fixed position */
+            grid-row: 1 / 2;
             align-items: center;
             justify-content: center;
             text-align: center;
         }
         
-        #card-location h3 {
-             font-size: 1.5rem;
-             margin: 4px 0;
+        /* Card 5: Hobby - Small Box (1x1) - Now needs to be explicitly placed */
+        #card-hobby {
+            grid-column: 2 / 3; /* Placed in the middle column of the second row */
+            grid-row: 2 / 3;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
         
+        /* New Card 7 (Reflection): Small Box (1x1) */
+        #card-reflection {
+            /* Placed next to Card 5 (Hobby) */
+            grid-column: 3 / 4; 
+            grid-row: 2 / 3;
+            justify-content: center;
+        }
+
         /* Card 6: Theme - Wide Box (3x1) */
         #card-theme {
+            /* Spanning below the 2x2 profile card and the new small cards */
             grid-column: 1 / -1; 
+            grid-row: 3 / 4;
             padding: 25px 30px;
             background-color: var(--color-accent);
             color: white;
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
-        }
-        
-        #card-theme h3 {
-            margin: 0;
-            font-size: 1.5rem;
-        }
-        
-        #card-theme .card-content-secondary {
-            margin: 0;
-            color: rgba(255, 255, 255, 0.7);
         }
 
 
@@ -201,31 +210,16 @@
             }
 
             .card {
+                /* Reset all custom positioning for vertical stack */
                 grid-column: span 1 !important;
                 grid-row: span 1 !important;
                 min-height: 140px; 
                 padding: 20px;
-                justify-content: center;
+                transform: none !important; /* Disable scale on small screens */
             }
             
-            #card-profile {
-                padding: 24px;
-                min-height: 280px;
-            }
-            
-            .profile-header h1 {
-                font-size: 2.2rem;
-            }
-
-            .profile-header p {
-                font-size: 1.1rem;
-                margin-bottom: 20px;
-            }
-            
-            #card-theme {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 5px;
+            .card:hover {
+                transform: translateY(-2px); /* Keep slight lift */
             }
         }
     </style>
@@ -244,9 +238,9 @@
                     <p>**Innovating food safety.** Focused on understanding molecular changes in food and applying analytical methods to quality control.</p>
                 </div>
                 <div class="social-links">
-                    <a href="#">LinkedIn</a>
-                    <a href="#">GitHub</a>
-                    <a href="#">UMT Portal</a>
+                    <a href="#" target="_blank">LinkedIn</a>
+                    <a href="#" target="_blank">GitHub</a>
+                    <a href="#" target="_blank">UMT Portal</a>
                 </div>
             </div>
 
@@ -258,11 +252,10 @@
                     function updateTime() {
                         const now = new Date();
                         const options = { hour: '2-digit', minute: '2-digit', hour12: true };
-                        // Formatting for current location: Kuala Terengganu, Terengganu, Malaysia
                         document.getElementById('time-display').textContent = now.toLocaleTimeString('en-US', options);
                     }
                     updateTime(); 
-                    setInterval(updateTime, 60000); // Update every minute
+                    setInterval(updateTime, 60000); 
                 </script>
             </div>
 
@@ -284,6 +277,12 @@
                 <p>A relaxing break for reflection and enjoying the ocean environment.</p>
             </div>
             
+            <div class="card accent" id="card-reflection">
+                <p class="card-content-secondary">💡 Mission Statement</p>
+                <h3>Why Food Tech Matters in Malaysia</h3>
+                <p>Sustainable food security is crucial for our future. By optimizing local processing methods, we can **reduce waste** and **improve nutrition**.</p>
+            </div>
+            
             <div class="card" id="card-theme">
                 <p class="card-content-secondary">🌊 Design Theme</p>
                 <h3>Deep Ocean Blue & Scientific White</h3>
@@ -291,6 +290,7 @@
 
         </section>
     </div>
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/album/7kFyd5oyJdVX2pIi6P4iHE?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 
 </body>
 </html>
