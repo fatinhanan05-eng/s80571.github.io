@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nurfatin Hanani - Food Technology Landing Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Reset and Global Styles */
+        :root {
+            /* Rule 4: Clean, scientific color palette & Deep Ocean Blue accent */
+            --color-bg: #f5f7fa; /* Very Soft Light Grey Background */
+            --color-card-bg: #ffffff; /* Pure White Card Background */
+            --color-text-primary: #1f2937; /* Dark Grey Text */
+            --color-text-secondary: #6b7280; /* Medium Grey Sub-text */
+            --color-accent: #004c81; /* Deep Ocean Blue (UMT Theme) */
+            --border-radius: 14px;
+            --spacing: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text-primary);
+            padding: var(--spacing);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* --- Bento Grid Layout --- */
+
+        .bento-grid-container {
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .bento-grid {
+            /* Rule 2: Grid layout on desktop */
+            display: grid;
+            gap: var(--spacing);
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: minmax(180px, auto); 
+        }
+
+        /* --- Card Styling --- */
+
+        .card {
+            background-color: var(--color-card-bg);
+            border-radius: var(--border-radius);
+            padding: var(--spacing) calc(var(--spacing) * 1.5);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05); 
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            font-weight: 700;
+            font-size: 1.35rem;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .card p {
+            color: var(--color-text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .card strong {
+            color: var(--color-accent);
+            font-weight: 600;
+        }
+        
+        .card-content-secondary {
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        /* Accent Card Styles */
+        .card.accent {
+            background-color: var(--color-accent);
+            color: var(--color-card-bg); 
+            justify-content: space-between;
+        }
+        
+        .card.accent h1,
+        .card.accent h3,
+        .card.accent p {
+            color: white; 
+        }
+        
+        .card.accent .card-content-secondary {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* --- Specific Card Layouts --- */
+        
+        /* Card 1: Profile - Large Box (2x2) */
+        #card-profile {
+            grid-column: span 2;
+            grid-row: span 2;
+            padding: 30px;
+        }
+        
+        .profile-header h1 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .profile-header p {
+            font-size: 1.35rem;
+            font-weight: 300;
+            margin-bottom: 25px;
+        }
+        
+        .social-links a {
+            color: white;
+            opacity: 0.9;
+            text-decoration: none;
+            font-weight: 500;
+            margin-right: 20px;
+            font-size: 0.95rem;
+            transition: opacity 0.2s ease;
+        }
+        
+        .social-links a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        /* Card 2: Location - Small Box (1x1) */
+        #card-location {
+            grid-column: span 1;
+            grid-row: span 1;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        #card-location h3 {
+             font-size: 1.5rem;
+             margin: 4px 0;
+        }
+        
+        /* Card 6: Theme - Wide Box (3x1) */
+        #card-theme {
+            grid-column: 1 / -1; 
+            padding: 25px 30px;
+            background-color: var(--color-accent);
+            color: white;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        #card-theme h3 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        
+        #card-theme .card-content-secondary {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+
+        /* --- Rule 2: Mobile Responsiveness (Vertical Stacking) --- */
+
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+            
+            .bento-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: auto; 
+                gap: 12px;
+            }
+
+            .card {
+                grid-column: span 1 !important;
+                grid-row: span 1 !important;
+                min-height: 140px; 
+                padding: 20px;
+                justify-content: center;
+            }
+            
+            #card-profile {
+                padding: 24px;
+                min-height: 280px;
+            }
+            
+            .profile-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .profile-header p {
+                font-size: 1.1rem;
+                margin-bottom: 20px;
+            }
+            
+            #card-theme {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bento-grid-container">
+        <section class="bento-grid">
+            
+            <div class="card accent" id="card-profile">
+                <div class="profile-header">
+                    <h1>NURFATIN HANANI</h1>
+                    <p>Food Technology, Year 1</p>
+                </div>
+                <div class="profile-info">
+                    <p>**Innovating food safety.** Focused on understanding molecular changes in food and applying analytical methods to quality control.</p>
+                </div>
+                <div class="social-links">
+                    <a href="#">LinkedIn</a>
+                    <a href="#">GitHub</a>
+                    <a href="#">UMT Portal</a>
+                </div>
+            </div>
+
+            <div class="card" id="card-location">
+                <p class="card-content-secondary">📍 Current Location</p>
+                <h3>UMT, Kuala Nerus</h3>
+                <p><span id="time-display">Loading...</span> (Local Time)</p>
+                <script>
+                    function updateTime() {
+                        const now = new Date();
+                        const options = { hour: '2-digit', minute: '2-digit', hour12: true };
+                        // Formatting for current location: Kuala Terengganu, Terengganu, Malaysia
+                        document.getElementById('time-display').textContent = now.toLocaleTimeString('en-US', options);
+                    }
+                    updateTime(); 
+                    setInterval(updateTime, 60000); // Update every minute
+                </script>
+            </div>
+
+            <div class="card" id="card-tech-stack">
+                <p class="card-content-secondary">📚 Core Skills & Subjects</p>
+                <h3>Food Chemistry & Lab Analysis</h3>
+                <p>Competent in **Microbiology** techniques, **Excel** for statistical data processing, and instrumental **Lab Analysis**.</p>
+            </div>
+
+            <div class="card" id="card-case-study">
+                <p class="card-content-secondary">📝 Recent Mini-Study</p>
+                <h3>Starch Gelatinization in Local Kuih</h3>
+                <p>Analyzing **texture profiles** of Kuih Lapis to determine the optimal cooking temperature and ingredient ratios.</p>
+            </div>
+
+            <div class="card" id="card-hobby">
+                <p class="card-content-secondary">🌊 Wellness Activity</p>
+                <h3>Evening Walks at Pantai UMT</h3>
+                <p>A relaxing break for reflection and enjoying the ocean environment.</p>
+            </div>
+            
+            <div class="card" id="card-theme">
+                <p class="card-content-secondary">🌊 Design Theme</p>
+                <h3>Deep Ocean Blue & Scientific White</h3>
+            </div>
+
+        </section>
+    </div>
+
+</body>
+</html>
